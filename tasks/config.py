@@ -7,6 +7,7 @@ from loguru import logger
 
 celery_app = Celery(
     'tasks', include=['tasks.telegram_actions'],
+    broker_connection_retry_on_startup=True,
     broker=f'redis://{REDIS_USER}:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB_BROKER}',
     backend=f'redis://{REDIS_USER}:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB_CELERY_METRICS}'
 )

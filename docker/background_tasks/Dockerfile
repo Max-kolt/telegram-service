@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 #COPY ../.. /app
 
-CMD ["celery", "-A", "tasks.config.celery_app worker"]
+CMD ["celery", "-A", "tasks.config.celery_app", "worker", "-l", "INFO"]

@@ -1,0 +1,17 @@
+
+
+services:
+  telegram_service:
+    build:
+      context: ./docker/telegram_service
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    env_file:
+      - .env
+
+  background_tasks:
+    build:
+      context: ./docker/background_tasks
+    env_file:
+      - .env

@@ -1,0 +1,14 @@
+# created by virtualenv automatically
+lib
+bin
+pyvenv.cfg
+.idea
+
+static
+
+__pycache__
+
+.env
+logs
+logger.log
+include

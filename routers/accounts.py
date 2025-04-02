@@ -14,10 +14,10 @@ accounts_router = APIRouter(prefix="/accounts", tags=['Accounts'])
 
 @accounts_router.get('/get_all')
 async def get_all(db: AsyncSession = Depends(get_async_session)):
-    accounts: list[TelegramAccounts] = await TelegramAccountsRepo.get_all(db)
+    accounts: list[TelegramAccounts] = await TelegramAccountsRepo.getx_all(db)
     return [
         {"id": acc.id,
-         "username": acc.login,
+         "login": acc.login,
          "phone": acc.phone,
          "last_activity": acc.last_activity,
          "created_at": acc.created_at}

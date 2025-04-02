@@ -1,10 +1,10 @@
 from .base import BaseModel
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, BigInteger
 from sqlalchemy.sql import func
 
 
 class TelegramAccounts(BaseModel):
-    id = Column(Integer, nullable=False, primary_key=True, unique=True)  # Telegram ID
+    id = Column(BigInteger, nullable=False, primary_key=True, unique=True)  # Telegram ID
     login = Column(String)  # Telegram login
     phone = Column(String, nullable=False, primary_key=True)
     api_id = Column(Integer, nullable=False)

@@ -59,12 +59,12 @@ async def get_user_online_info(user_id: int,
 
 
 @accounts_router.get('/{user_id}/chats')
-async def get_user_chats(user_id: str,
+async def get_user_chats(user_id: int,
                          db: AsyncSession = Depends(get_async_session)):
     chats = await TelegramAccountsService.get_user_chats
 
 @accounts_router.get('/{user_id}/chat_info')
-async def get_user_chat_info(user_id: str,
+async def get_user_chat_info(user_id: int,
                              db: AsyncSession = Depends(get_async_session)):
     pass
 
@@ -84,31 +84,37 @@ async def confirm_account(confirm_data: ConfirmTelegramAccount,
 
 
 @accounts_router.patch('/{user_id}/change_description')
-async def change_description(user_id: str, new_description: str,
+async def change_description(user_id: int, new_description: str,
                              db: AsyncSession = Depends(get_async_session)):
-    pass
+    return await TelegramAccountsService.change_description(db, user_id, new_description=new_description)
 
 
 @accounts_router.patch('/{user_id}/change_firstname')
-async def change_firstname(user_id: str, new_firstname: str,
+async def change_firstname(user_id: int, new_firstname: str,
                            db: AsyncSession = Depends(get_async_session)):
-    pass
+    return await TelegramAccountsService.change_fname(db, user_id, new_fname=new_firstname)
 
 
 @accounts_router.patch('/{user_id}/change_lastname')
-async def change_lastname(user_id: str, new_lastanme: str,
+async def change_lastname(user_id: int, new_lastanme: str,
                           db: AsyncSession = Depends(get_async_session)):
-    pass
+    return await TelegramAccountsService.change_lname(db, user_id, new_lname=new_lastanme)
 
 
 @accounts_router.patch('/{user_id}/change_gender')
-async def change_gender(user_id: str, new_gender: Literal['male', 'female'],
+async def change_gender(user_id: int, new_gender: Literal['male', 'female'],
                         db: AsyncSession = Depends(get_async_session)):
-    pass
+    return await TelegramAccountsService.change_gender(db, new_gender)
 
 
 @accounts_router.patch('/{user_id}/change_online_settings')
-async def change_online_settings(user_id: str,
+async def change_online_settings(user_id: int,
                                  new_settings: ChangeOnlineSettingsSchema,
                                  db: AsyncSession = Depends(get_async_session)):
+    return await TelegramAccountsService.change_online_settings(db, user_id, new_settings)
+
+
+@accounts_router.delete('/delete_account')
+async def delete_account(user_id: int, db: AsyncSession = Depends(get_async_session)):
     pass
+

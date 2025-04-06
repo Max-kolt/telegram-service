@@ -19,7 +19,7 @@ def telethon_session(user_id: int, api_id: int, api_hash: str) -> TelegramClient
 
 def telethon_session_decorator(func):
     @wraps(func)
-    async def wrapper(cls, db: AsyncSession, user_id: int, *args, **kwargs):
+    async def wrapper(db: AsyncSession, user_id: int, *args, **kwargs):
         print(db, user_id)
         acc_info = await TelegramAccountsRepo.get_by_id(db, user_id)
         api_id, api_hash = acc_info.api_id, acc_info.api_hash
@@ -28,7 +28,7 @@ def telethon_session_decorator(func):
 
         await tg_client.start()
 
-        func_result = await func(cls, db=db, client=tg_client, account=acc_info, *args, **kwargs)
+        func_result = await func(db=db, client=tg_client, account=acc_info, *args, **kwargs)
         tg_client.disconnect()
 
         return func_result

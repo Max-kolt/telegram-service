@@ -11,7 +11,7 @@ from telethon.tl.types.auth import SentCode
 from utils import telethon_session, telethon_session_decorator
 from database.account import TelegramAccounts
 from repository.account import TelegramAccountsRepo
-from .schemas import AddTelegramAccount, ConfirmTelegramAccount
+from .schemas import AddTelegramAccount, ConfirmTelegramAccount, ChangeOnlineSettingsSchema
 
 
 class TelegramAccountsService:
@@ -130,9 +130,15 @@ class TelegramAccountsService:
         return result_model
 
     @staticmethod
-    async def change_gender(db: AsyncSession):
+    async def change_gender(db: AsyncSession, new_gender: int):
         pass
 
     @staticmethod
-    async def change_online_settings(db: AsyncSession):
+    async def change_online_settings(db: AsyncSession, new_settings: ChangeOnlineSettingsSchema):
         pass
+
+    @staticmethod
+    async def delete_account(db: AsyncSession, user_id: int):
+        await TelegramAccountsRepo.delete(db, user_id)
+        return True
+

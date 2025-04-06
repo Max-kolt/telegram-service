@@ -25,7 +25,7 @@ class BaseCrudRepo:
         return model
 
     @classmethod
-    async def delete(cls, db: AsyncSession, model_id: str):
+    async def delete(cls, db: AsyncSession, model_id: str | int):
         query = delete(cls.model).where(cls.model.id == model_id)
         await db.execute(query)
         await db.commit()

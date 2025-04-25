@@ -12,7 +12,7 @@ from services.accounts import TelegramAccountsService, AddTelegramAccount, Confi
 accounts_router = APIRouter(prefix="/accounts", tags=['Accounts'])
 
 
-@accounts_router.get('/get_all')
+@accounts_router.get('/')
 async def get_all(db: AsyncSession = Depends(get_async_session)):
     accounts: list[TelegramAccounts] = await TelegramAccountsRepo.get_all(db)
     return [
